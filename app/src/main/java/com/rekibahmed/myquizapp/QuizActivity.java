@@ -22,6 +22,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView textViewScore;
     private TextView textViewQuestionCount;
     private TextView textViewCountDown;
+    private TextView textViewCrctWrng;
     private TextView textViewSolution;
     private RadioGroup rbGroup;
     private RadioButton rb1;
@@ -31,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button btnConfirmNext;
 
     private ColorStateList textColorDefaultRb;
+    private ColorStateList textColorDefaultCw;
 
     private List<Questions> questionList;
     private int questionCounter;
@@ -50,6 +52,7 @@ public class QuizActivity extends AppCompatActivity {
         textViewQuestionCount = findViewById(R.id.quiz_question_count);
         textViewCountDown = findViewById(R.id.quiz_count_down);
         textViewSolution = findViewById(R.id.quiz_solution);
+        textViewCrctWrng = findViewById(R.id.crct_wrng);
         rbGroup = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.radio_btn1);
         rb2 = findViewById(R.id.radio_btn2);
@@ -58,6 +61,8 @@ public class QuizActivity extends AppCompatActivity {
         btnConfirmNext = findViewById(R.id.quiz_btn_confirm_next);
 
         textColorDefaultRb = rb1.getTextColors();
+        textColorDefaultCw = textViewCrctWrng.getTextColors();
+
 
         QuizDbHelper dbHelper = new QuizDbHelper(this);
         questionList = dbHelper.getAllQuestions();
@@ -86,9 +91,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private void showNextQuestion(){
         rb1.setTextColor(textColorDefaultRb);
-        rb1.setTextColor(textColorDefaultRb);
-        rb1.setTextColor(textColorDefaultRb);
-        rb1.setTextColor(textColorDefaultRb);
+        rb2.setTextColor(textColorDefaultRb);
+        rb3.setTextColor(textColorDefaultRb);
+        rb4.setTextColor(textColorDefaultRb);
         rbGroup.clearCheck();
 
         if(questionCounter<questionCountTotal){
@@ -103,6 +108,9 @@ public class QuizActivity extends AppCompatActivity {
             questionCounter++;
             textViewQuestionCount.setText("Question: "+questionCounter+"/"+questionCountTotal);
             answered = false;
+            textViewSolution.setText(" ");
+            textViewCrctWrng.setText(" ");
+            textViewCrctWrng.setTextColor(textColorDefaultCw);
             btnConfirmNext.setText("Confirm");
         } else {
             finishQuiz();
@@ -115,36 +123,35 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
+        showSolution();
+
         if(answerNr == currentQuestion.getAnswerNr()){
             score++;
             textViewScore.setText("Score: " + score);
+            textViewCrctWrng.setText("Correct answer");
+            textViewCrctWrng.setTextColor(Color.GREEN);
+            textViewSolution.setText(" ");
+        } else{
+            textViewCrctWrng.setText("Wrong answer");
+            textViewCrctWrng.setTextColor(Color.RED);
         }
 
-        showSolution();
     }
 
     private void showSolution(){
-        rb1.setTextColor(Color.RED);
-        rb2.setTextColor(Color.RED);
-        rb3.setTextColor(Color.RED);
-        rb4.setTextColor(Color.RED);
 
         switch (currentQuestion.getAnswerNr()){
             case 1:
-                rb1.setTextColor(Color.GREEN);
-                textViewSolution.setText("Answer 1 is correct");
+                textViewSolution.setText("Option 1 is correct");
                 break;
             case 2:
-                rb2.setTextColor(Color.GREEN);
-                textViewSolution.setText("Answer 2 is correct");
+                textViewSolution.setText("Option 2 is correct");
                 break;
             case 3:
-                rb3.setTextColor(Color.GREEN);
-                textViewSolution.setText("Answer 3 is correct");
+                textViewSolution.setText("Option 3 is correct");
                 break;
             case 4:
-                rb4.setTextColor(Color.GREEN);
-                textViewSolution.setText("Answer 4 is correct");
+                textViewSolution.setText("Option 4 is correct");
                 break;
         }
 
@@ -156,7 +163,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void finishQuiz(){
-        Toast.makeText(this, "finish", Toast.LENGTH_SHORT).show();
-//        finish();
+        finish();
     }
 }

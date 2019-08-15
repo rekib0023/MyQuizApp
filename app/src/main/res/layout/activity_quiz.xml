@@ -87,12 +87,23 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/quiz_solution"
+        android:id="@+id/crct_wrng"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/quiz_btn_confirm_next"
         android:paddingTop="10dp"
         android:text=""
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/quiz_solution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/crct_wrng"
+        android:paddingTop="10dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="16sp" />
 
 </RelativeLayout>

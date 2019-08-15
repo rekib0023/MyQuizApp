@@ -36,5 +36,23 @@
         android:text="@string/start_quiz"
         android:textColor="@android:color/white" />
 
+    <Spinner
+        android:id="@+id/spinner_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_quiz_btn"
+        android:layout_alignStart="@+id/start_quiz_btn"
+        android:layout_alignLeft="@id/start_quiz_btn"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinner_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_category"
+        android:layout_alignStart="@+id/start_quiz_btn"
+        android:layout_alignLeft="@id/start_quiz_btn"
+        android:layout_marginTop="16dp" />
+
 
 </RelativeLayout>

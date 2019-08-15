@@ -24,6 +24,14 @@
         android:textColor="@android:color/black" />
 
     <TextView
+        android:id="@+id/quiz_category_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/quiz_question_count"
+        android:text="Difficulty:"
+        android:textColor="@android:color/black" />
+
+    <TextView
         android:id="@+id/quiz_count_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

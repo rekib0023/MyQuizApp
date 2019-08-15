@@ -26,6 +26,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView textViewQuestion;
     private TextView textViewScore;
     private TextView textViewQuestionCount;
+    private TextView textViewCategoryDifficulty;
     private TextView textViewCountDown;
     private TextView textViewCrctWrng;
     private TextView textViewSolution;
@@ -59,6 +60,7 @@ public class QuizActivity extends AppCompatActivity {
         textViewQuestion = findViewById(R.id.quiz_question);
         textViewScore = findViewById(R.id.quiz_score);
         textViewQuestionCount = findViewById(R.id.quiz_question_count);
+        textViewCategoryDifficulty= findViewById(R.id.quiz_category_difficulty);
         textViewCountDown = findViewById(R.id.quiz_count_down);
         textViewSolution = findViewById(R.id.quiz_solution);
         textViewCrctWrng = findViewById(R.id.crct_wrng);
@@ -71,8 +73,16 @@ public class QuizActivity extends AppCompatActivity {
 
         textColorDefaultCd = textViewCountDown.getTextColors();
 
-        QuizDbHelper dbHelper = new QuizDbHelper(this);
-        questionList = dbHelper.getQuestions("Medium");
+        Intent intent = getIntent();
+        int categoryID = intent.getIntExtra(MainActivity.EXTRA_CATEGORY_ID, 0);
+        String categoryName = intent.getStringExtra(MainActivity.EXTRA_CATEGORY_NAME);
+        String difficulty = intent.getStringExtra(MainActivity.EXTRA_DIFFICULTY);
+
+        textViewCategoryDifficulty.setText(categoryName + " : " + difficulty);
+
+//        QuizDbHelper dbHelper = new QuizDbHelper(this);
+        QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
+        questionList = dbHelper.getQuestions(categoryID, difficulty);
         questionCounter = 0;
         questionCountTotal = questionList.size();
         Collections.shuffle(questionList);

@@ -21,6 +21,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
     public QuizDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            Log.e("DATABASE OPERATIONS", "Database created / opened...");
     }
 
     @Override
@@ -34,10 +35,11 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_OPTION1 + " TEXT, " +
                 QuestionsTable.COLUMN_OPTION2 + " TEXT, " +
                 QuestionsTable.COLUMN_OPTION3 + " TEXT, " +
-                QuestionsTable.COLUMN_ANSWER_NR + " INTEGER" +
-                ");";
+                QuestionsTable.COLUMN_OPTION4 + " TEXT, " +
+                QuestionsTable.COLUMN_ANSWER_NR + " INTEGER);";
 
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
+            Log.e("DATABASE OPERATIONS", "Table created...");
         fillQuestionsTable();
     }
 
@@ -68,7 +70,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         cv.put(QuestionsTable.COLUMN_OPTION4, question.getOption4());
         cv.put(QuestionsTable.COLUMN_ANSWER_NR, question.getAnswerNr());
         db.insert(QuestionsTable.TABLE_NAME, null, cv);
-//        Log.d("yo mann", )
+            Log.e("DATABASE OPERATIONS", "One row inserted...");
     }
 
     public List<Questions> getAllQuestions() {
